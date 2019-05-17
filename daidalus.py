@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 
 
-@app.route('/export', methods=['GET'])
-def export_data():
+@app.route('/export/<N>', methods=['GET'])
+def export_data(N):
     SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
     url_file = os.path.join(SITE_ROOT,'resources', "egrid2016_data.xlsx" )
     url ="https://www.epa.gov/sites/production/files/2018-02/egrid2016_data.xlsx"
@@ -17,7 +17,7 @@ def export_data():
 
     #return  df_gen16.to_html();
 
-    return df_gen16.nlargest(5,'GENNTAN',keep='all').to_json(orient="records")
+    return df_gen16.nlargest(N,'GENNTAN',keep='all').to_json(orient="records")
 
 
 
